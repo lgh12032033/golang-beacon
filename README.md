@@ -12,6 +12,7 @@ Everything below will be written using Chinese, and if you don't know Chinese, y
 
 下边是本项目设计的第一个任务，也是主线任务。
 ![主线任务图](./images/%E4%B8%BB%E7%BA%BF%E5%9B%BE.png)
+
 上图所示的内容就是本项目的整个主线任务内容，项目的所有任务都会贯穿始终，层层通关之后，你将会成为一个优秀的 **golang** 开发者。
 
 # FOUNDATION
