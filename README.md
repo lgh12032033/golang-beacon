@@ -195,3 +195,103 @@ gofmt -l xxx.go
 - -cpuprofile支持调试模式，写入相应的cpufile到指定的文件
 
 以上就是本次任务的全部内容。
+
+## FOUNDATION 任务二：Go 命名与目录结构
+
+- 2022年11月13日13:11:05，今天的主要任务是了解Go这门编程语言的命名规范和工程目录结构。
+
+- Go 的函数、变量、常量、自定义类型、包（package）的命名方式都必须遵循以下规则：
+  1.首字符可以是任意的Unicode字符或者下划线（不能以数字开头）
+  2.剩余字符可以是Unicode字符、下划线、数字
+  3.字符长度不限
+  4.命名不得与关键字重名，也不要使用保留字 
+- Go 中的25个关键字
+  ~~~go
+  break        default      func         interface    select
+  case         defer        go           map          struct
+  chan         else         goto         package      switch
+  const        fallthrough  if           range        type
+  continue     for          import       return       var
+  ~~~
+- Go还有37个保留字
+~~~go
+Constants:    true  false  iota  nil
+
+    Types:    int  int8  int16  int32  int64  
+              uint  uint8  uint16  uint32  uint64  uintptr
+              float32  float64  complex128  complex64
+              bool  byte  rune  string  error
+
+    Functions:   make  len  cap  new  append  copy  close  delete
+                 complex  real  imag
+                 panic  recover
+~~~
+- 可见性对比：
+  - 在 { } 内定义的为局部作用有效，类似private
+  - 在 函数外部定义的对当前包有效，类似protect
+  - 申明在外部且首字母大写的为所有包有效，类似public
+- go 中声明的五种方式：
+  1. var （声明变量）
+  2. const （声明常量）
+  3. type（声明类型）
+  4. func（声明函数）
+  5. package （放置文件顶行，声明文件所属包，注意包名只能为小写）
+
+- 在上一节中我们已经完成了 go 环境的安装，并编写了第一个go程序 hello，golang，这节我们需要了解一下一个go工程它的目录结构是怎么样的。
+  - 一个Go工程中主要包含以下三个目录：
+    - src：源代码文件
+    - pkg：包文件
+    - bin：相关bin文件
+  - 第一步：我们需要创建工程文件夹
+  - 第二步：在工程文件夹中创建 src，pkg和bin三个文件夹
+  - 第三步: 并将工程文件夹添加到 GOPATH 环境中
+  - 第四步：可以在src文件中以包名创建文件夹，将同一包的所有文件放置在相同的包中。
+  - 第五步：编写工程主程序 main.go 和其他的包文件。
+- 工程项目结构构建练习：
+- - 我当前的目录结构如下
+~~~txt
+├─directory_structure
+├─bin
+├─pkg
+└─src
+    │  main.go
+    │
+    └─mymath
+            mymath.go
+~~~
+- mymath.go
+~~~go
+package mymath
+
+func Add(num1 int, num2 int) int {
+	return num1 + num2
+}
+
+func Sub(num1 int, num2 int) int {
+	return num1 - num2
+}
+
+~~~
+- main.go
+~~~go
+package main
+
+import (
+	"fmt"
+	"mymath"
+)
+
+func main() {
+	num1 := 10
+	num2 := 20
+	var res1 = mymath.Add(num1, num2)
+	var res2 = mymath.Sub(num2, num1)
+	fmt.Println(res1)
+	fmt.Println(res2)
+}
+
+~~~
+执行结果如下：
+![执行结果](images/day2_res.png)
+
+- 今日掌握要点：了解go的各种命名规则，以及其定义的变量和函数的可见性；了解go的工程结构应该如何构建；
